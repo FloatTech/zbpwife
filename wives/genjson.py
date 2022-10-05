@@ -5,7 +5,6 @@ sgs = {}
 if os.path.exists('wife.json'):
     with open('wife.json', 'r',encoding='utf-8') as f:
         sgs = json.load(f)
-# print(sgs)
 pwd = os.getcwd()
 urlList = []
 for i in sgs:
