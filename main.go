@@ -53,11 +53,15 @@ func init() {
 			i := fcext.RandSenderPerDayN(ctx.Event.UserID, len(cardMap))
 			card := cardMap[(strconv.Itoa(i))]
 
-			ctx.SendChain(
+			if id := ctx.SendChain(
 				message.At(ctx.Event.UserID),
 				message.Text("今天的二次元老婆是~【", card.Name, "】哒"),
 				message.Image("file:///"+datapath+card.URL),
 				// message.Text("\n【", card.Lines[rand.Intn(len(card.Lines))], "】"),
-			)
+			); id.ID() == 0 {
+				ctx.SendChain(
+					message.At(ctx.Event.UserID),
+					message.Text("今天的二次元老婆是~【", card.Name, "】哒\n【图片发送失败，请联系维护者~】"))
+			}
 		})
 }
